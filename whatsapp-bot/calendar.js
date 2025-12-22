@@ -74,34 +74,37 @@ async function getVolunteerShifts(calendarId = calendar_id) {
       date: dateStr,
       day: dayName,
       volunteers: 0,
-      interns: 0,
+      // interns: 0,
     });
   }
 
   events.forEach((ev) => {
-    if (!/(volunteer shift|interns)/i.test(ev.summary || "")) return;
+    const s = ev.summary || "";
+
+    // ignore canceled events
+    if (/^canceled:/i.test(s) || ev.status === "cancelled") return;
+
+    // only count actual volunteer shifts
+    if (!/\bvolunteer\s+shift\b/i.test(s)) return;
 
     const when = new Date(ev.start.dateTime || ev.start.date);
     const dateStr = when.toLocaleDateString("en-CA");
     const dayName = when.toLocaleDateString("en-US", { weekday: "long" });
 
     if (!bucketsMap.has(dateStr)) {
-      bucketsMap.set(dateStr, {
-        date: dateStr,
-        day: dayName,
-        volunteers: 0,
-        interns: 0,
-      });
+      bucketsMap.set(dateStr, { date: dateStr, day: dayName, volunteers: 0 });
     }
 
-    const count = getCount(ev);
-    const isIntern = /interns/i.test(ev.summary || "");
-    if (isIntern) {
-      bucketsMap.get(dateStr).interns += count;
-    } else {
-      bucketsMap.get(dateStr).volunteers += count;
-    }
+    const count = getCount(ev); // parses "(X of Y spots filled)" etc.
+    bucketsMap.get(dateStr).volunteers += count;
   });
+
+  // ✅ Always add +1 volunteer for each Tuesday (Erik)
+  for (const bucket of bucketsMap.values()) {
+    if (bucket.day === "Tuesday") {
+      bucket.volunteers = (bucket.volunteers || 0) + 1;
+    }
+  }
 
   return [...bucketsMap.values()].sort(
     (a, b) => new Date(a.date) - new Date(b.date)

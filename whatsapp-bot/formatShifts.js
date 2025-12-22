@@ -7,7 +7,7 @@ function formatShifts(bucketsArray) {
     (a, b) => new Date(a.date) - new Date(b.date)
   );
 
-  for (const { date, volunteers, interns } of sorted) {
+  for (const { date, volunteers } of sorted) {
     const [year, month, day] = date.split("-").map(Number);
     const dt = new Date(year, month - 1, day);
     const shortDay = dt.toLocaleDateString("en-US", { weekday: "short" }); // Tue
@@ -15,7 +15,7 @@ function formatShifts(bucketsArray) {
       month: "2-digit",
       day: "2-digit",
     }); // 07/15
-    const total = volunteers + interns;
+    const total = volunteers;
 
     if (total === 0) {
       lines.push(`*${shortDay} ${mmdd}* – no volunteers scheduled‼️`);
@@ -29,12 +29,10 @@ function formatShifts(bucketsArray) {
     const volunteerText = `${volunteers} volunteer${
       volunteers !== 1 ? "s" : ""
     }`;
-    const internText =
-      interns > 0 ? `, ${interns} intern${interns !== 1 ? "s" : ""}` : "";
+    // const internText =
+    //   interns > 0 ? `, ${interns} intern${interns !== 1 ? "s" : ""}` : "";
 
-    lines.push(
-      `*${shortDay} ${mmdd}* – ${statusText} (${volunteerText}${internText})`
-    );
+    lines.push(`*${shortDay} ${mmdd}* – ${statusText} (${volunteerText})`);
   }
 
   if (fullyCovered) {

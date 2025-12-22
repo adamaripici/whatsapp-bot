@@ -19,16 +19,20 @@ const formatShifts = require("./formatShifts");
 // Tiny helper to pause
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
-async function sendWhatsAppMessage() {
+async function sendWhatsAppMessage({ dryRun = false } = {}) {
   // 1. Build the message from Calendar
   const buckets = await getVolunteerShifts(CALENDAR_ID);
   const message = formatShifts(buckets);
-  // 🔍 Instead of sending, just print to console
-  console.log("====== WhatsApp Message Preview ======");
-  console.log("Group:", GROUP_NAME);
-  console.log("Message:\n");
-  console.log(message);
-  console.log("======================================");
+  // 2. If dry run, just print and return
+  if (dryRun) {
+    console.log("====== WhatsApp Message Preview ======");
+    console.log("Group:", GROUP_NAME);
+    console.log("Message:\n");
+    console.log(message);
+    console.log("======================================");
+    console.log("🧪 No message sent. (Use --send to actually send)");
+    return;
+  }
 
   // 1 Launch (re-use session so QR is only scanned once)
   const browser = await puppeteer.launch({
@@ -79,10 +83,11 @@ async function sendWhatsAppMessage() {
   await browser.close();
 }
 
-// Run immediately if this file is executed (node bot.js)
+// Run from command line
 if (require.main === module) {
-  sendWhatsAppMessage().catch((err) => {
-    console.error("❌  Error sending message:", err);
+  const dryRun = !process.argv.includes("--send"); // default to dry-run unless --send flag
+  sendWhatsAppMessage({ dryRun }).catch((err) => {
+    console.error("❌ Error:", err);
     process.exit(1);
   });
 }
