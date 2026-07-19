@@ -1,0 +1,53 @@
+{
+  "heroImageUrl": "https://adamaripici.github.io/rabbitears/openhouse.jpeg",
+  "rabbitUpdates": [
+    "Freya still on hold 🐰"
+  ],
+  "guineaPigUpdates": [
+    "Paprika was adopted!",
+    "Ilea is on hold"
+  ],
+  "openHouse": {
+    "title": "SPRING Open House at RabbitEARS",
+    "date": "Saturday, April 25th",
+    "time": "1:00–4:00 PM",
+    "description": "We’re excited to host our Spring Open House. This is a wonderful opportunity to showcase our residents and help more people discover what RabbitEARS is all about. Please spread the word! We’ll be sending out an email soon that you can forward.",
+    "volunteerHelpTitle": "Volunteer Help Needed for the Open House",
+    "volunteerHelpText": "We’ll need helping hands throughout the day — please sign up via the Calendly links below:",
+    "shifts": [
+      {
+        "time": "10:00 AM – 1:00 PM",
+        "description": "Regular rabbit & guinea pig cage cleaning and event setup"
+      },
+      {
+        "time": "1:00 PM – 4:00 PM",
+        "description": "Greeters, crowd monitors, and bunny ambassadors to interact with visitors"
+      },
+      {
+        "time": "4:00 PM – 5:00 PM",
+        "description": "Cleanup and returning habitats to normal positions"
+      }
+    ],
+    "signupLinks": [
+      {
+        "label": "Sign up for a 2-hour shift",
+        "url": "https://calendly.com/your-2-hour-link"
+      },
+      {
+        "label": "Sign up for a 3-hour shift",
+        "url": "https://calendly.com/your-3-hour-link"
+      },
+      {
+        "label": "Sign up for a 4-hour shift",
+        "url": "https://calendly.com/your-4-hour-link"
+      }
+    ]
+  },
+  "boardersHtml": "",
+  "reminders": [
+  "📅 Save the date: Saturday 4/25 Open House! We’ll need cleaning help from 10 AM – 1 PM that day.",
+  "Reminder: please give apple twigs to the rabbits — they make great, healthy chewing snacks!"
+],
+  "introHtml": "<p>Hi RabbitEARS Volunteers,</p><p>Thank you for all the care and dedication you continue to give to our rabbits and guinea pigs. Your time and effort truly make a difference in their lives.</p><p>Here are this week’s updates:</p>",
+  "footerHtml": "<hr><p><strong>RabbitEARS Rescue, Pet Supply, &amp; Service</strong><br>6124 Telegraph Ave<br>Oakland, CA 94609</p><p>12:30 pm to 8 pm Wed through Sun<br>Closed Mon and Tues</p><p>(510) 655-EARS (3277)</p><p><a href='https://www.facebook.com/'>Like our Facebook page</a><br><a href='https://www.petfinder.com/'>View our available pets on PetFinder</a><br><a href='https://www.instagram.com/'>Follow us on Instagram</a><br>website: <a href='https://www.rabbitears.org'>www.rabbitears.org</a><br><a href='https://www.amazon.com/'>Amazon Wishlist to donate necessities for our animals</a></p><p>We are 100% volunteer-run — thank you for your patience and support!</p>"
+}

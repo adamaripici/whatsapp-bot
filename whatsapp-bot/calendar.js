@@ -11,7 +11,7 @@ async function authorize() {
   const oAuth2 = new google.auth.OAuth2(
     client_id,
     client_secret,
-    redirect_uris[0]
+    redirect_uris[0],
   );
   oAuth2.setCredentials(token);
   return oAuth2;
@@ -37,11 +37,21 @@ async function getVolunteerShifts(calendarId = calendar_id) {
   const auth = await authorize();
   const calendar = google.calendar({ version: "v3", auth });
 
-  const today = new Date(); // use current time, don't reset to 00:00
-  const oneWeek = new Date();
-  oneWeek.setDate(today.getDate() + numDays);
-  const timeMin = startOfDay(today).toISOString();
-  const timeMax = endOfDay(oneWeek).toISOString();
+  const now = new Date(); // use current time, don't reset to 00:00
+  // Use today normally, but after 5 PM start from tomorrow
+  const baseDate = new Date(now);
+  if (now.getHours() >= 17) {
+    baseDate.setDate(baseDate.getDate() + 1);
+  }
+  const rangeEnd = new Date(baseDate);
+  rangeEnd.setDate(baseDate.getDate() + numDays);
+  // const today = new Date(); // use current time, don't reset to 00:00
+  // const oneWeek = new Date();
+  // oneWeek.setDate(today.getDate() + numDays);
+  // const timeMin = startOfDay(today).toISOString();
+  // const timeMax = endOfDay(oneWeek).toISOString();
+  const timeMin = startOfDay(baseDate).toISOString();
+  const timeMax = endOfDay(rangeEnd).toISOString();
 
   const res = await calendar.events.list({
     calendarId,
@@ -63,8 +73,8 @@ async function getVolunteerShifts(calendarId = calendar_id) {
   let buckets = []; // Array of { date, day, count }
   const bucketsMap = new Map();
   for (let i = 0; i < numDays; i++) {
-    const d = new Date(today);
-    d.setDate(today.getDate() + i);
+    const d = new Date(baseDate);
+    d.setDate(baseDate.getDate() + i);
     const dateStr = d.toLocaleDateString("en-CA");
     const dayName = d.toLocaleDateString("en-US", { weekday: "long" });
 
@@ -107,7 +117,7 @@ async function getVolunteerShifts(calendarId = calendar_id) {
   }
 
   return [...bucketsMap.values()].sort(
-    (a, b) => new Date(a.date) - new Date(b.date)
+    (a, b) => new Date(a.date) - new Date(b.date),
   );
 }
 
