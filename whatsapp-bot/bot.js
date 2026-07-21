@@ -5,6 +5,7 @@
 // • Customize GROUP_NAME and MESSAGE as you like.
 
 const puppeteer = require("puppeteer");
+const sendIMessage = require("./sendIMessage");
 
 // === CONFIG ============================================================
 // const GROUP_NAME = "RabbitEARS volunteers 🐇"; // exact chat title
@@ -23,6 +24,9 @@ async function sendWhatsAppMessage({ dryRun = false } = {}) {
   // 1. Build the message from Calendar
   const buckets = await getVolunteerShifts(CALENDAR_ID);
   const message = formatShifts(buckets);
+  // Send the message to yourself via iMessage
+await sendIMessage("+17739668756", message);
+await sendIMessage("+16264633504", message);
   // 2. If dry run, just print and return
   if (dryRun) {
     console.log("====== WhatsApp Message Preview ======");
