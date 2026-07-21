@@ -1,0 +1,41 @@
+name: Send RabbitEARS Volunteer Update
+
+on:
+  schedule:
+    - cron: "0 10 * * 1,3,5"
+      timezone: "America/Los_Angeles"
+
+  # Allows you to test it manually from GitHub
+  workflow_dispatch:
+
+jobs:
+  send-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Create Google credential files
+        env:
+          GOOGLE_CREDENTIALS_JSON: ${{ secrets.GOOGLE_CREDENTIALS_JSON }}
+          GOOGLE_TOKEN_JSON: ${{ secrets.GOOGLE_TOKEN_JSON }}
+        run: |
+          printf '%s' "$GOOGLE_CREDENTIALS_JSON" > credentials.json
+          printf '%s' "$GOOGLE_TOKEN_JSON" > token.json
+
+      - name: Generate and email volunteer update
+        env:
+          EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
+          EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
+          RECIPIENT_EMAILS: ${{ secrets.RECIPIENT_EMAILS }}
+        run: node cloud.js
