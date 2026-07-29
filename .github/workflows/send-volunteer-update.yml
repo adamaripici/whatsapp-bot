@@ -2,7 +2,7 @@ name: Send RabbitEARS Volunteer Update
 
 on:
   schedule:
-    - cron: "0 10 * * 1,3,5"
+    - cron: "5 7 * * 1,3,5"
       timezone: "America/Los_Angeles"
 
   workflow_dispatch:
