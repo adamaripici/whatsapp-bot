@@ -50,6 +50,7 @@ jobs:
           EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
           EMAIL_APP_PASSWORD: ${{ secrets.EMAIL_APP_PASSWORD }}
           RECIPIENT_EMAILS: ${{ secrets.RECIPIENT_EMAILS }}
+          CALENDAR_ID: ${{ secrets.CALENDAR_ID }}
         run: node cloud.js
 
       - name: Configure GitHub Pages

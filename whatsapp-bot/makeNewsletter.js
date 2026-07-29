@@ -4,7 +4,7 @@ const getVolunteerShifts = require("./calendar");
 const { renderEmailHtmlToFile } = require("./renderEmailHtml");
 const fs = require("fs");
 
-const CALENDAR_ID = "qjulvgq3h7jf3ma8pesf3fchns@group.calendar.google.com";
+const CALENDAR_ID = process.env.CALENDAR_ID;
 
 async function main() {
   const dataPath = path.join(__dirname, "newsletter_data.json");

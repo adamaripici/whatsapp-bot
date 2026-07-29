@@ -4,14 +4,14 @@ const formatShifts = require("./formatShifts");
 const fs = require("fs");
 const path = require("path");
 
-const CALENDAR_ID =
-  "qjulvgq3h7jf3ma8pesf3fchns@group.calendar.google.com";
+const CALENDAR_ID = process.env.CALENDAR_ID;
 
 async function main() {
   const requiredVariables = [
     "EMAIL_ADDRESS",
     "EMAIL_APP_PASSWORD",
     "RECIPIENT_EMAILS",
+    "CALENDAR_ID",
   ];
 
   for (const variable of requiredVariables) {

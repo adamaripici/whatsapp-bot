@@ -12,7 +12,7 @@ const sendIMessage = require("./sendIMessage");
 const GROUP_NAME = "My Volunteering Group"; // exact chat title
 const SEARCH_SELECTOR = 'div[aria-label="Search input textbox"]';
 const MESSAGE_BOX_SELECTOR = 'div[aria-label="Type a message"]';
-const CALENDAR_ID = "qjulvgq3h7jf3ma8pesf3fchns@group.calendar.google.com";
+const CALENDAR_ID = process.env.CALENDAR_ID;
 const getVolunteerShifts = require("./calendar");
 const formatShifts = require("./formatShifts");
 // =======================================================================

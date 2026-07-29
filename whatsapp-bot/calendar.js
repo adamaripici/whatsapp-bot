@@ -1,7 +1,7 @@
 // calendar.js
 const fs = require("fs").promises;
 const { google } = require("googleapis");
-const calendar_id = "qjulvgq3h7jf3ma8pesf3fchns@group.calendar.google.com";
+const CALENDAR_ID = process.env.CALENDAR_ID;
 const getCount = require("./volunteerCount");
 const numDays = 8;
 async function authorize() {
