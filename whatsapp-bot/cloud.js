@@ -1,6 +1,8 @@
 const nodemailer = require("nodemailer");
 const getVolunteerShifts = require("./calendar");
 const formatShifts = require("./formatShifts");
+const fs = require("fs");
+const path = require("path");
 
 const CALENDAR_ID =
   "qjulvgq3h7jf3ma8pesf3fchns@group.calendar.google.com";
@@ -43,6 +45,18 @@ async function main() {
   });
 
   console.log(`✅ Volunteer update emailed to ${recipients.length} recipient(s).`);
+
+  const siteDirectory = path.join(__dirname, "site");
+  fs.mkdirSync(siteDirectory, { recursive: true });
+
+  fs.writeFileSync(
+    path.join(siteDirectory, "latest.txt"),
+    message,
+    "utf8"
+  );
+
+console.log("✅ Created site/latest.txt");
+
 }
 
 main().catch((error) => {
