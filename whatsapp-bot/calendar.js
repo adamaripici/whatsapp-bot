@@ -33,7 +33,7 @@ function weekdayStr(dateObj) {
   return dateObj.toLocaleDateString("en-US", { weekday: "long" }); // “Monday”
 }
 
-async function getVolunteerShifts(calendarId = calendar_id) {
+async function getVolunteerShifts(calendarId = CALENDAR_ID) {
   const auth = await authorize();
   const calendar = google.calendar({ version: "v3", auth });
 
